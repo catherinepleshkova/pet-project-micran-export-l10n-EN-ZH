@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>АО «НПФ «МИКРАН» — Кейс кросс-культурной B2B-локализации (СНГ, Глобальный Юг, КНР, Гонконг и Тайвань)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-deep: #081226;
+      --navy-card: #0F1E3A;
+      --blue-industrial: #0066CC;
+      --cyan-telemetry: #00A8E8;
+    }
+    body {
+      font-family: 'Inter', 'Noto Sans SC', 'Noto Sans TC', sans-serif;
+      background-color: #F4F7FB;
+      color: #0F172A;
+    }
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .lang-zh-sc {
+      font-family: 'Noto Sans SC', 'Inter', sans-serif;
+    }
+    .lang-zh-tc {
+      font-family: 'Noto Sans TC', 'Inter', sans-serif;
+    }
+    .blueprint-grid {
+      background-color: #081226;
+      background-image: 
+        linear-gradient(to right, rgba(0, 168, 232, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 168, 232, 0.08) 1px, transparent 1px),
+        linear-gradient(to right, rgba(0, 168, 232, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 168, 232, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+    }
+    .inspector-box {
+      transition: all 0.25s ease;
+    }
+    @keyframes pulse-wave {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 1; }
+    }
+    .rf-pulse {
+      animation: pulse-wave 2.4s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- TOP PORTFOLIO BAR (RUSSIAN META HEADER) -->
+  <div class="bg-slate-950 text-slate-300 text-xs border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>Портфолио-кейс по технической и кросс-культурной локализации (RU → EN / 简体中文 / 繁體中文) для <strong>АО «НПФ «МИКРАН»</strong></span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="text-slate-400">Автор: <strong class="text-white">Екатерина Плешкова</strong></span>
+        <button onclick="toggleReadmeModal(true)" class="text-sky-400 hover:text-sky-300 underline font-medium cursor-pointer">
+          README.md для GitHub
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STICKY CORPORATE NAVIGATION & REGION SWITCHER -->
+  <header class="sticky top-0 z-40 bg-[#081226]/95 backdrop-blur-md border-b border-sky-900/50 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+        
+        <!-- MICRAN VECTOR LOGO -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <svg width="42" height="42" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
+              <rect width="48" height="48" rx="10" fill="#0F2347" stroke="#00A8E8" stroke-width="1.5"/>
+              <path d="M11 34V16L19 26L27 16V34" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M32 29C34.2 26.8 34.2 23.2 32 21" stroke="#00A8E8" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M35.5 32.5C39.6 28.4 39.6 21.6 35.5 17.5" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-opacity="0.75"/>
+              <circle cx="30" cy="25" r="2" fill="#00A8E8"/>
+            </svg>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-white font-extrabold tracking-wider text-base sm:text-lg" id="brand-title">MICRAN</span>
+                <span class="text-[10px] font-mono-tech uppercase px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30" id="brand-badge">АО «НПФ «МИКРАН»</span>
+              </div>
+              <p class="text-[11px] text-slate-400" id="brand-subtitle">СВЧ-электроника · Системы связи · Радиофотоника · IIoT</p>
+            </div>
+          </div>
+
+          <!-- MOBILE INSPECTOR TOGGLE -->
+          <button onclick="toggleInspector()" class="lg:hidden px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+            Инспектор: <span id="inspector-state-mobile">ВКЛ</span>
+          </button>
+        </div>
+
+        <!-- 4-REGION SWITCHER TABS -->
+        <div class="flex flex-wrap items-center gap-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800" role="tablist">
+          <button onclick="setRegion('cis')" id="tab-cis" class="region-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
+            EN · СНГ и ЕАЭС
+          </button>
+          <button onclick="setRegion('gs')" id="tab-gs" class="region-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
+            EN · Глобальный Юг
+          </button>
+          <button onclick="setRegion('cn')" id="tab-cn" class="region-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
+            简体中文 · Китай (КНР)
+          </button>
+          <button onclick="setRegion('hktw')" id="tab-hktw" class="region-tab px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
+            繁體中文 · Гонконг и Тайвань
+          </button>
+        </div>
+
+        <!-- DESKTOP INSPECTOR TOGGLE -->
+        <div class="hidden lg:flex items-center gap-2">
+          <button onclick="toggleInspector()" id="inspector-btn" class="flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-400/40 transition cursor-pointer">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            <span>Инспектор локализации (RU): <strong id="inspector-state">ВКЛ</strong></span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION WITH ENGINEERING BLUEPRINT CONSOLE -->
+  <section class="blueprint-grid text-white border-b border-sky-900/60 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <!-- LEFT: LOCALIZED B2B COPY -->
+        <div class="lg:col-span-7 space-y-6" id="hero-content-wrapper">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/15 border border-sky-400/30 text-sky-300 text-xs font-mono-tech">
+            <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+            <span id="hero-kicker">ГОСТ / ЕАЭС · СУВЕРЕННАЯ СВЧ-ЭЛЕКТРОНИКА</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-[42px] font-extrabold leading-tight tracking-tight text-white" id="hero-title">
+            Mission-Critical Microwave &amp; Wireless Infrastructure for Extreme Environments
+          </h1>
+
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl" id="hero-subtitle">
+            Full-cycle GaAs/GaN MMIC fabrication, carrier-grade digital radio relay links, and explosion-proof IIoT telemetry engineered for continuous operation from -60°C Arctic pipelines to remote industrial grids.
+          </p>
+
+          <!-- KEY METRICS BAR -->
+          <div class="grid grid-cols-3 gap-4 pt-2 max-w-xl">
+            <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
+              <div class="text-xl sm:text-2xl font-extrabold text-sky-400 font-mono-tech" id="metric-1-val">10 Gbps</div>
+              <div class="text-xs text-slate-400 mt-1" id="metric-1-lbl">E-Band Wireless Backhaul</div>
+            </div>
+            <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
+              <div class="text-xl sm:text-2xl font-extrabold text-sky-400 font-mono-tech" id="metric-2-val">-60°C..+55°C</div>
+              <div class="text-xs text-slate-400 mt-1" id="metric-2-lbl">GOST Arctic Certification</div>
+            </div>
+            <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3.5">
+              <div class="text-xl sm:text-2xl font-extrabold text-sky-400 font-mono-tech" id="metric-3-val">100%</div>
+              <div class="text-xs text-slate-400 mt-1" id="metric-3-lbl">In-House Foundry &amp; R&amp;D</div>
+            </div>
+          </div>
+
+          <!-- TRANSLATOR INSPECTOR NOTE (RUSSIAN) -->
+          <div class="inspector-box bg-amber-950/60 border-l-4 border-amber-400 rounded-r-xl p-4 text-sm text-amber-100 shadow-md">
+            <div class="flex items-center gap-2 text-amber-300 font-bold text-xs uppercase tracking-wider mb-1">
+              <span>🔍 Комментарий переводчика (стратегия адаптации под регион)</span>
+            </div>
+            <p id="hero-translator-note" class="leading-relaxed text-amber-100/95">
+              Для стран СНГ и ЕАЭС мы сознательно отказываемся от западных маркетинговых штампов («hyper-scalable cloud-native ecosystem») в пользу конкретных инженерных гарантий: соответствия ГОСТ/ЕАЭС, работы в морозы до −60 °C, собственной фабрики СВЧ МИС и независимости от санкционных цепочек поставок.
+            </p>
+          </div>
+        </div>
+
+        <!-- RIGHT: INTERACTIVE ENGINEERING BLUEPRINT CONSOLE (SVG) -->
+        <div class="lg:col-span-5">
+          <div class="bg-[#0B1933] border border-sky-500/30 rounded-2xl p-5 shadow-2xl relative">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                <span class="font-mono-tech text-xs text-sky-300 tracking-wide">МИК-РЛ E-BAND LINK TELEMETRY</span>
+              </div>
+              <span class="font-mono-tech text-[11px] text-slate-400" id="console-std-tag">STD: GOST R / ITU-R</span>
+            </div>
+
+            <!-- SVG RADIO RELAY LINK & RF SPECTRUM VISUALIZATION -->
+            <svg viewBox="0 0 420 250" class="w-full h-auto rounded-xl bg-[#060E1F] border border-slate-800/90 p-2" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#00A8E8" stop-opacity="0.85"/>
+                  <stop offset="50%" stop-color="#38BDF8" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#00A8E8" stop-opacity="0.85"/>
+                </linearGradient>
+                <linearGradient id="specFill" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#00A8E8" stop-opacity="0.45"/>
+                  <stop offset="100%" stop-color="#00A8E8" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Background technical grid lines -->
+              <line x1="20" y1="145" x2="400" y2="145" stroke="#1E293B" stroke-width="1"/>
+              <line x1="20" y1="45" x2="400" y2="45" stroke="#1E293B" stroke-dasharray="3 3" stroke-width="1"/>
+
+              <!-- Left Tower (Site A) -->
+              <g stroke="#64748B" stroke-width="1.5" fill="none">
+                <path d="M55 145 L65 65 L75 145"/>
+                <line x1="58" y1="120" x2="72" y2="120"/>
+                <line x1="60" y1="95" x2="70" y2="95"/>
+                <line x1="58" y1="120" x2="70" y2="95"/>
+                <line x1="72" y1="120" x2="60" y2="95"/>
+              </g>
+              <!-- Left Parabolic Dish -->
+              <path d="M74 62 Q86 74 74 86 Z" fill="#00A8E8" stroke="#E0F2FE" stroke-width="1.2"/>
+              <line x1="80" y1="74" x2="88" y2="74" stroke="#E0F2FE" stroke-width="1.5"/>
+
+              <!-- Right Tower (Site B) -->
+              <g stroke="#64748B" stroke-width="1.5" fill="none">
+                <path d="M345 145 L355 65 L365 145"/>
+                <line x1="348" y1="120" x2="362" y2="120"/>
+                <line x1="350" y1="95" x2="360" y2="95"/>
+                <line x1="348" y1="120" x2="360" y2="95"/>
+                <line x1="362" y1="120" x2="350" y2="95"/>
+              </g>
+              <!-- Right Parabolic Dish -->
+              <path d="M346 62 Q334 74 346 86 Z" fill="#00A8E8" stroke="#E0F2FE" stroke-width="1.2"/>
+              <line x1="340" y1="74" x2="332" y2="74" stroke="#E0F2FE" stroke-width="1.5"/>
+
+              <!-- Microwave Fresnel Zone Beam -->
+              <ellipse cx="210" cy="74" rx="122" ry="16" fill="url(#beamGrad)" class="rf-pulse"/>
+              <line x1="88" y1="74" x2="332" y2="74" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="6 4"/>
+              <text x="210" y="52" text-anchor="middle" fill="#7DD3FC" font-family="JetBrains Mono" font-size="9">71–76 / 81–86 GHz · FULL-DUPLEX 10 Gbps</text>
+
+              <!-- Labels for Sites -->
+              <rect x="30" y="150" width="70" height="18" rx="4" fill="#0F2347" stroke="#1E3A8A"/>
+              <text x="65" y="162" text-anchor="middle" fill="#E2E8F0" font-family="JetBrains Mono" font-size="8.5" id="svg-site-a">NODE A · CORE</text>
+
+              <rect x="320" y="150" width="70" height="18" rx="4" fill="#0F2347" stroke="#1E3A8A"/>
+              <text x="355" y="162" text-anchor="middle" fill="#E2E8F0" font-family="JetBrains Mono" font-size="8.5" id="svg-site-b">NODE B · FIELD</text>
+
+              <!-- Bottom Oscilloscope / RF Spectrum Analyzer -->
+              <rect x="25" y="178" width="370" height="58" rx="6" fill="#09152B" stroke="#1E293B"/>
+              <path d="M35 224 L80 224 L105 222 L125 215 L145 223 L185 223 L200 190 L210 184 L220 190 L235 223 L285 223 L305 217 L325 224 L385 224" fill="url(#specFill)" stroke="#00A8E8" stroke-width="1.8"/>
+              <text x="36" y="193" fill="#94A3B8" font-family="JetBrains Mono" font-size="8">RF CARRIER SNR: +34.2 dB</text>
+              <text x="384" y="193" text-anchor="end" fill="#34D399" font-family="JetBrains Mono" font-size="8" id="svg-env-status">TEMP: -60°C NOMINAL</text>
+            </svg>
+
+            <!-- TELEMETRY FOOTER STRIP -->
+            <div class="grid grid-cols-3 gap-2 mt-4 text-center font-mono-tech">
+              <div class="bg-slate-900/90 rounded-lg p-2 border border-slate-800">
+                <div class="text-[10px] text-slate-400">МОДУЛЯЦИЯ</div>
+                <div class="text-xs font-bold text-white">2048 QAM</div>
+              </div>
+              <div class="bg-slate-900/90 rounded-lg p-2 border border-slate-800">
+                <div class="text-[10px] text-slate-400">ЗАЩИТА</div>
+                <div class="text-xs font-bold text-sky-400" id="console-ip-val">IP66 / Ex d</div>
+              </div>
+              <div class="bg-slate-900/90 rounded-lg p-2 border border-slate-800">
+                <div class="text-[10px] text-slate-400">MTBF</div>
+                <div class="text-xs font-bold text-emerald-400">150 000 ч</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 CORE SOLUTIONS SECTION WITH CUSTOM ENGINEERING SVG SCHEMATICS -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div>
+        <span class="text-xs font-mono-tech uppercase tracking-wider text-sky-700 font-bold">Продуктовая линейка АО «НПФ «МИКРАН»</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1" id="solutions-heading">
+          Ключевые технологические направления (адаптированный B2B-каталог)
+        </h2>
+      </div>
+      <p class="text-sm text-slate-600 max-w-md">
+        Переключайте регионы в верхней панели, чтобы увидеть, как меняется подача одних и тех же инженерных решений.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- CARD 1: GaAs / GaN MMIC -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
+        <div class="bg-[#0B1933] p-4 flex items-center justify-between border-b border-slate-800">
+          <div>
+            <span class="text-[11px] font-mono-tech text-sky-400 uppercase">01 · МИКРОЭЛЕКТРОНИКА</span>
+            <h3 class="text-lg font-bold text-white mt-0.5" id="card1-title">GaAs &amp; GaN Monolithic Microwave ICs (MMIC)</h3>
+          </div>
+          <!-- SVG: Semiconductor Die with Gold Wire Bonds -->
+          <svg width="76" height="54" viewBox="0 0 76 54" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
+            <rect x="4" y="4" width="68" height="46" rx="6" fill="#060E1F" stroke="#1E3A8A"/>
+            <rect x="22" y="13" width="32" height="28" rx="2" fill="#0066CC" fill-opacity="0.35" stroke="#00A8E8" stroke-width="1.4"/>
+            <rect x="28" y="19" width="20" height="16" fill="#00A8E8" fill-opacity="0.3"/>
+            <!-- Gold wire bonds -->
+            <path d="M22 18 L12 14 M22 27 L12 27 M22 36 L12 40" stroke="#FBBF24" stroke-width="1.3"/>
+            <path d="M54 18 L64 14 M54 27 L64 27 M54 36 L64 40" stroke="#FBBF24" stroke-width="1.3"/>
+          </svg>
+        </div>
+        <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+          <div>
+            <p class="text-slate-700 text-sm leading-relaxed" id="card1-desc">
+              Design and serial wafer fabrication of low-noise amplifiers, power amplifiers, and phase shifters up to 110 GHz with full domestic foundry sovereignty.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-3" id="card1-tags">
+              <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono-tech text-xs">DC – 110 GHz</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono-tech text-xs">GaAs / GaN 0.15 µm</span>
+            </div>
+          </div>
+          <div class="inspector-box bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-xs text-slate-800">
+            <div class="font-bold text-amber-900 mb-1">💡 Разбор термина «СВЧ МИС» (RU):</div>
+            <p id="card1-note" class="leading-relaxed text-slate-700">
+              Для СНГ сохраняем акцент на полном цикле производства без зависимости от западных фабрик («full domestic foundry sovereignty»).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: 5G & CARRIER-GRADE RADIO RELAY -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
+        <div class="bg-[#0B1933] p-4 flex items-center justify-between border-b border-slate-800">
+          <div>
+            <span class="text-[11px] font-mono-tech text-sky-400 uppercase">02 · ТЕЛЕКОМ И 5G</span>
+            <h3 class="text-lg font-bold text-white mt-0.5" id="card2-title">Carrier-Grade Digital Radio Relay Systems (MIK-RL)</h3>
+          </div>
+          <!-- SVG: Telecom Tower & Sector Antennas -->
+          <svg width="76" height="54" viewBox="0 0 76 54" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
+            <rect x="4" y="4" width="68" height="46" rx="6" fill="#060E1F" stroke="#1E3A8A"/>
+            <path d="M32 46 L38 14 L44 46" stroke="#94A3B8" stroke-width="1.5"/>
+            <line x1="34" y1="34" x2="42" y2="34" stroke="#94A3B8" stroke-width="1.2"/>
+            <rect x="35" y="11" width="6" height="9" rx="1" fill="#00A8E8"/>
+            <path d="M27 12 C23 15 23 20 27 23" stroke="#38BDF8" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M49 12 C53 15 53 20 49 23" stroke="#38BDF8" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M22 9 C16 14 16 21 22 26" stroke="#00A8E8" stroke-width="1.2" stroke-opacity="0.6" stroke-linecap="round"/>
+            <path d="M54 9 C60 14 60 21 54 26" stroke="#00A8E8" stroke-width="1.2" stroke-opacity="0.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+          <div>
+            <p class="text-slate-700 text-sm leading-relaxed" id="card2-desc">
+              All-outdoor and split-mount microwave backhaul links (6–86 GHz) for 4G/5G transport networks, oil &amp; gas trunklines, and hard-to-reach regions without fiber optics.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-3" id="card2-tags">
+              <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono-tech text-xs">6–86 GHz</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono-tech text-xs">XPIC / ACM</span>
+            </div>
+          </div>
+          <div class="inspector-box bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-xs text-slate-800">
+            <div class="font-bold text-amber-900 mb-1">💡 Разбор термина «ЦРРС» (RU):</div>
+            <p id="card2-note" class="leading-relaxed text-slate-700">
+              Русская аббревиатура ЦРРС переводится как «Digital Radio Relay Systems / Microwave Backhaul» с указанием сценария замены оптоволокна на больших расстояниях.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: MICROWAVE PHOTONICS -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
+        <div class="bg-[#0B1933] p-4 flex items-center justify-between border-b border-slate-800">
+          <div>
+            <span class="text-[11px] font-mono-tech text-sky-400 uppercase">03 · РАДИОФОТОНИКА</span>
+            <h3 class="text-lg font-bold text-white mt-0.5" id="card3-title">Microwave Photonics &amp; RF-over-Fiber Systems</h3>
+          </div>
+          <!-- SVG: Optical Laser to RF Modulator Circuit -->
+          <svg width="76" height="54" viewBox="0 0 76 54" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
+            <rect x="4" y="4" width="68" height="46" rx="6" fill="#060E1F" stroke="#1E3A8A"/>
+            <rect x="11" y="21" width="14" height="12" rx="2" fill="#0066CC" stroke="#38BDF8"/>
+            <line x1="25" y1="27" x2="38" y2="27" stroke="#F43F5E" stroke-width="2"/>
+            <polygon points="38,19 52,27 38,35" fill="#00A8E8" fill-opacity="0.35" stroke="#00A8E8" stroke-width="1.3"/>
+            <path d="M52 27 Q56 20 60 27 T68 27" stroke="#34D399" stroke-width="1.6" fill="none"/>
+          </svg>
+        </div>
+        <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+          <div>
+            <p class="text-slate-700 text-sm leading-relaxed" id="card3-desc">
+              Ultra-wideband optical-to-RF signal conversion and remote antenna remoting with near-zero attenuation and complete immunity to electromagnetic interference (EMI).
+            </p>
+            <div class="flex flex-wrap gap-2 mt-3" id="card3-tags">
+              <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono-tech text-xs">RF-over-Fiber</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono-tech text-xs">Zero EMI</span>
+            </div>
+          </div>
+          <div class="inspector-box bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-xs text-slate-800">
+            <div class="font-bold text-amber-900 mb-1">💡 Разбор термина «Радиофотоника» (RU):</div>
+            <p id="card3-note" class="leading-relaxed text-slate-700">
+              В международной инженерной практике используется «Microwave Photonics» и прикладной термин «RF-over-Fiber (RFoF)», понятный системным интеграторам.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4: INDUSTRIAL IIoT & TELEMETRY -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden flex flex-col">
+        <div class="bg-[#0B1933] p-4 flex items-center justify-between border-b border-slate-800">
+          <div>
+            <span class="text-[11px] font-mono-tech text-sky-400 uppercase">04 · ПРОМЫШЛЕННЫЙ IOT</span>
+            <h3 class="text-lg font-bold text-white mt-0.5" id="card4-title">Explosion-Proof IIoT Telemetry &amp; SCADA Nodes</h3>
+          </div>
+          <!-- SVG: Ruggedized IP67 / Ex Sensor Node -->
+          <svg width="76" height="54" viewBox="0 0 76 54" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
+            <rect x="4" y="4" width="68" height="46" rx="6" fill="#060E1F" stroke="#1E3A8A"/>
+            <rect x="24" y="18" width="28" height="24" rx="4" fill="#0F2347" stroke="#00A8E8" stroke-width="1.5"/>
+            <circle cx="38" cy="30" r="5" fill="#00A8E8" fill-opacity="0.3" stroke="#38BDF8" stroke-width="1.4"/>
+            <line x1="38" y1="18" x2="38" y2="10" stroke="#E2E8F0" stroke-width="1.8"/>
+            <circle cx="38" cy="9" r="2" fill="#34D399"/>
+            <path d="M44 11 C47 11 49 13 49 16" stroke="#34D399" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+          <div>
+            <p class="text-slate-700 text-sm leading-relaxed" id="card4-desc">
+              Autonomous wireless sensors and industrial gateways with 10-year battery life, Modbus/OPC UA integration, and certified Ex-proof enclosures for hazardous facilities.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-3" id="card4-tags">
+              <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono-tech text-xs">IP67 / Ex ia</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-100 text-slate-700 font-mono-tech text-xs">Modbus / SCADA</span>
+            </div>
+          </div>
+          <div class="inspector-box bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-xs text-slate-800">
+            <div class="font-bold text-amber-900 mb-1">💡 Разбор термина «Взрывозащита / ТЭК» (RU):</div>
+            <p id="card4-note" class="leading-relaxed text-slate-700">
+              Вместо размытого «smart sensors» указываем конкретные протоколы АСУ ТП (Modbus, OPC UA) и класс взрывозащиты (Ex ia / ATEX / ТР ТС 012).
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLIMATE & STANDARDS VISUALIZER INFOGRAPHIC -->
+  <section class="bg-slate-900 text-white py-12 border-y border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-8">
+        <span class="text-xs font-mono-tech uppercase tracking-wider text-sky-400">Инженерная инфографика</span>
+        <h2 class="text-2xl font-extrabold mt-1">Адаптация климатических и отраслевых стандартов под регион</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-sky-400">СНГ и ЕАЭС</span>
+            <span class="font-mono-tech text-xs text-slate-400">-60°C … +55°C</span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden mb-3">
+            <div class="h-full bg-gradient-to-r from-cyan-400 to-blue-600 w-[75%]"></div>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Упор на арктическое исполнение (УХЛ1), ГОСТ Р, ТР ТС и совместимость с действующими магистралями ТЭК.
+          </p>
+        </div>
+
+        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-amber-400">Глобальный Юг</span>
+            <span class="font-mono-tech text-xs text-slate-400">-10°C … +60°C</span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden mb-3">
+            <div class="h-full bg-gradient-to-r from-amber-400 to-orange-600 ml-[25%] w-[75%]"></div>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Упор на тропизацию (IP67), защиту от песчаных бурь, солнечной радиации, питание от СЭС и Zero Vendor Lock-in.
+          </p>
+        </div>
+
+        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-rose-400">Китай (КНР)</span>
+            <span class="font-mono-tech text-xs text-slate-400">GB/T · CCSA</span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden mb-3">
+            <div class="h-full bg-gradient-to-r from-rose-500 to-red-600 w-[85%]"></div>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Акцент на технологический суверенитет (自主可控), индустриальное партнерство и локализацию на базе ГОСТ/GB.
+          </p>
+        </div>
+
+        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-emerald-400">Гонконг и Тайвань</span>
+            <span class="font-mono-tech text-xs text-slate-400">IEEE · ETSI · Foundry</span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden mb-3">
+            <div class="h-full bg-gradient-to-r from-emerald-400 to-teal-600 w-[90%]"></div>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Полупроводниковая точность (RFIC/MMIC дизайн, 晶圓代工), солевой туман, тайфуны и стандарты IEEE/ETSI.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIELD CASE STUDY SECTION -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <span class="inline-block px-3 py-1 rounded-full bg-sky-100 text-sky-800 font-mono-tech text-xs font-bold" id="case-badge">
+            КЕЙС ВНЕДРЕНИЯ · СНГ И ЕАЭС
+          </span>
+          <h3 class="text-2xl font-extrabold text-slate-900" id="case-title">
+            1,400 km Trunk Microwave Backhaul for Sub-Arctic Oil &amp; Gas Pipeline
+          </h3>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed" id="case-desc">
+            Deployment of 38 dual-polarized MIK-RL hops with automated SCADA telemetry across permafrost terrain where fiber trenching is economically unfeasible. Zero downtime recorded at -58°C.
+          </p>
+          <div class="inspector-box bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl text-xs sm:text-sm text-slate-800">
+            <strong class="text-amber-900">Комментарий переводчика к кейсу:</strong>
+            <p id="case-note" class="mt-1 text-slate-700 leading-relaxed">
+              В русскоязычном оригинале часто пишут «успешная реализация в суровых условиях». Для B2B-закупщика переводим это в измеримые параметры: протяженность трассы (1400 км), отсутствие прокладки оптики в вечной мерзлоте и 0% простоев при −58 °C.
+            </p>
+          </div>
+        </div>
+
+        <!-- SVG DEPLOYMENT TOPOLOGY -->
+        <div class="lg:col-span-5 bg-[#081226] rounded-xl p-5 text-white border border-slate-800">
+          <div class="text-xs font-mono-tech text-sky-400 mb-3">АРХИТЕКТУРА РАЗВЕРТЫВАНИЯ (СХЕМА)</div>
+          <svg viewBox="0 0 360 170" class="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="20" width="90" height="50" rx="8" fill="#0F2347" stroke="#00A8E8"/>
+            <text x="55" y="42" text-anchor="middle" fill="#FFFFFF" font-family="Inter" font-size="10" font-weight="bold">ЦОД / SCADA</text>
+            <text x="55" y="57" text-anchor="middle" fill="#7DD3FC" font-family="JetBrains Mono" font-size="8">Core Network</text>
+
+            <line x1="100" y1="45" x2="145" y2="45" stroke="#00A8E8" stroke-width="2" stroke-dasharray="4 3"/>
+
+            <rect x="145" y="20" width="90" height="50" rx="8" fill="#0F2347" stroke="#38BDF8"/>
+            <text x="190" y="42" text-anchor="middle" fill="#FFFFFF" font-family="Inter" font-size="10" font-weight="bold">МИК-РЛ РРЛ</text>
+            <text x="190" y="57" text-anchor="middle" fill="#7DD3FC" font-family="JetBrains Mono" font-size="8">6–86 GHz Hop</text>
+
+            <line x1="235" y1="45" x2="275" y2="45" stroke="#34D399" stroke-width="2"/>
+
+            <rect x="275" y="20" width="75" height="50" rx="8" fill="#0F2347" stroke="#34D399"/>
+            <text x="312" y="42" text-anchor="middle" fill="#FFFFFF" font-family="Inter" font-size="10" font-weight="bold">IIoT Узлы</text>
+            <text x="312" y="57" text-anchor="middle" fill="#6EE7B7" font-family="JetBrains Mono" font-size="8">IP67 / Ex ia</text>
+
+            <rect x="10" y="95" width="340" height="55" rx="8" fill="#060E1F" stroke="#1E293B"/>
+            <text x="24" y="118" fill="#94A3B8" font-family="JetBrains Mono" font-size="9">SLA AVAILABILITY: 99.999% (FIVE NINES)</text>
+            <text x="24" y="136" fill="#38BDF8" font-family="JetBrains Mono" font-size="9" id="svg-case-footer">DEPLOYMENT: TURNKEY EPC + FIELD SUPERVISION</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5-COLUMN COMPARATIVE TERMINOLOGY MATRIX -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="p-6 border-b border-slate-200 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono-tech uppercase tracking-wider text-sky-700 font-bold">Глоссарий и терминологический контроль (QA)</span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">
+            Сравнительная матрица терминов (RU → 4 экспортных региона)
+          </h2>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <input type="text" id="glossary-search" oninput="filterGlossary()" placeholder="Поиск термина (например, СВЧ, ЦРРС)..." class="px-3.5 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm focus:outline-none focus:border-sky-500 w-64"/>
+          <select id="glossary-cat" onchange="filterGlossary()" class="px-3 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-white focus:outline-none focus:border-sky-500">
+            <option value="all">Все категории</option>
+            <option value="rf">СВЧ и микроэлектроника</option>
+            <option value="telecom">Телеком и 5G</option>
+            <option value="env">Климатика и стандарты</option>
+            <option value="biz">B2B и пусконаладка</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-900 text-slate-200 text-xs uppercase font-mono-tech">
+              <th class="py-3.5 px-4 border-b border-slate-800">Оригинал (RU)</th>
+              <th class="py-3.5 px-4 border-b border-slate-800 text-sky-300">EN · СНГ и ЕАЭС</th>
+              <th class="py-3.5 px-4 border-b border-slate-800 text-amber-300">EN · Глобальный Юг</th>
+              <th class="py-3.5 px-4 border-b border-slate-800 text-rose-300">简体中文 · КНР</th>
+              <th class="py-3.5 px-4 border-b border-slate-800 text-emerald-300">繁體中文 · HK / TW</th>
+              <th class="py-3.5 px-4 border-b border-slate-800">Комментарий переводчика (RU)</th>
+            </tr>
+          </thead>
+          <tbody id="glossary-tbody" class="divide-y divide-slate-200 text-xs sm:text-sm">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO FOOTER -->
+  <footer class="bg-[#081226] text-slate-400 border-t border-slate-800 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div>
+        <div class="text-white font-bold text-base">Демонстрационный веб-кейс для АО «НПФ «МИКРАН»</div>
+        <p class="text-xs text-slate-400 mt-1 max-w-xl leading-relaxed">
+          Разработано в рамках портфолио на позицию «Контент-менеджер». Демонстрирует навыки управления мультиязычным контентом, координации технических переводов (RU / EN / ZH) и кросс-культурной адаптации под B2B-аудиторию.
+        </p>
+      </div>
+      <div class="text-xs space-y-1">
+        <div class="text-white font-semibold">Екатерина Плешкова</div>
+        <div>Контент-редактор · Локализация (EN C1 / ZH HSK 5)</div>
+        <div>Тел. / Telegram: <span class="text-sky-400">+7 906 949-77-78</span> · catherine.pleshkova@gmail.com</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GITHUB README MODAL -->
+  <div id="readme-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden border border-slate-200">
+      <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+        <span class="font-mono-tech text-sm font-bold">README.md для репозитория GitHub Pages</span>
+        <button onclick="toggleReadmeModal(false)" class="text-slate-400 hover:text-white text-lg font-bold cursor-pointer">&times;</button>
+      </div>
+      <div class="p-6 space-y-4">
+        <p class="text-xs text-slate-600">
+          Скопируйте этот текст в файл <code class="bg-slate-100 px-1.5 py-0.5 rounded">README.md</code> вашего репозитория на GitHub:
+        </p>
+        <textarea id="readme-text" readonly rows="12" class="w-full font-mono-tech text-xs bg-slate-950 text-slate-200 p-4 rounded-xl border border-slate-800 focus:outline-none"># Кросс-культурная локализация B2B-портала АО «НПФ «МИКРАН» (4 региона)
+
+Интерактивный демонстрационный проект по технической и кросс-культурной локализации (RU → EN СНГ / EN Глобальный Юг / 简体中文 КНР / 繁體中文 Гонконг и Тайвань).
+
+## Что реализовано в проекте:
+1. Переключение между 4 экспортными регионами в реальном времени с адаптацией УТП, технических метрик и стандартов (ГОСТ/ЕАЭС, ITU-R, GB/T, IEEE/ETSI).
+2. Режим инспектора локализации с русскоязычными комментариями переводчика к каждому инженерному решению.
+3. Сравнительная 5-колоночная терминологическая матрица (СВЧ МИС, ЦРРС, радиофотоника, взрывозащищенный IIoT, шеф-монтаж).
+4. Инженерная визуализация (SVG-схемы радиорелейного пролета МИК-РЛ, кристалла GaAs/GaN, оптоэлектроники и топологии сети).
+
+Автор: Екатерина Плешкова (catherine.pleshkova@gmail.com)</textarea>
+        <div class="flex justify-end gap-3">
+          <button onclick="copyReadme()" id="copy-btn" class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold cursor-pointer">
+            Скопировать README
+          </button>
+          <button onclick="toggleReadmeModal(false)" class="px-4 py-2 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-semibold cursor-pointer">
+            Закрыть
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const regionsData = {
+      cis: {
+        langClass: '',
+        brandTitle: 'MICRAN',
+        brandBadge: 'АО «НПФ «МИКРАН» · СНГ / ЕАЭС',
+        brandSubtitle: 'СВЧ-электроника · Системы связи · Радиофотоника · IIoT',
+        kicker: 'ГОСТ / ЕАЭС · СУВЕРЕННАЯ СВЧ-ЭЛЕКТРОНИКА',
+        title: 'Mission-Critical Microwave & Wireless Infrastructure for Extreme Environments',
+        subtitle: 'Full-cycle GaAs/GaN MMIC fabrication, carrier-grade digital radio relay links, and explosion-proof IIoT telemetry engineered for continuous operation from -60°C Arctic pipelines to remote industrial grids.',
+        m1Val: '10 Gbps', m1Lbl: 'E-Band Wireless Backhaul',
+        m2Val: '-60°C..+55°C', m2Lbl: 'GOST Arctic Certification',
+        m3Val: '100%', m3Lbl: 'In-House Foundry & R&D',
+        heroNote: 'Для стран СНГ и ЕАЭС отказываемся от западных маркетинговых штампов («hyper-scalable cloud-native SaaS») в пользу конкретных инженерных гарантий: соответствия ГОСТ/ЕАЭС, работы в морозы до −60 °C, собственной фабрики СВЧ МИС и независимости от санкционных цепочек поставок.',
+        consoleStd: 'STD: GOST R / EAEU / ITU-R',
+        svgEnv: 'TEMP: -60°C ARCTIC NOMINAL',
+        consoleIp: 'IP66 / ТР ТС Ex',
+        c1Title: 'GaAs & GaN Monolithic Microwave ICs (MMIC)',
+        c1Desc: 'Design and serial wafer fabrication of low-noise amplifiers, power amplifiers, and phase shifters up to 110 GHz with full domestic foundry sovereignty.',
+        c1Note: 'Для СНГ сохраняем акцент на полном цикле производства без зависимости от западных фабрик («full domestic foundry sovereignty»).',
+        c2Title: 'Carrier-Grade Digital Radio Relay Systems (MIK-RL)',
+        c2Desc: 'All-outdoor and split-mount microwave backhaul links (6–86 GHz) for 4G/5G transport networks, oil & gas trunklines, and hard-to-reach regions without fiber optics.',
+        c2Note: 'Русская аббревиатура ЦРРС переводится как «Digital Radio Relay Systems / Microwave Backhaul» с акцентом на замену оптоволокна на магистралях.',
+        c3Title: 'Microwave Photonics & RF-over-Fiber Systems',
+        c3Desc: 'Ultra-wideband optical-to-RF signal conversion and remote antenna remoting with near-zero attenuation and complete immunity to electromagnetic interference (EMI).',
+        c3Note: 'Используем международный инженерный термин «Microwave Photonics» и прикладное «RF-over-Fiber (RFoF)», понятное системным интеграторам.',
+        c4Title: 'Explosion-Proof IIoT Telemetry & SCADA Nodes',
+        c4Desc: 'Autonomous wireless sensors and industrial gateways with 10-year battery life, Modbus/OPC UA integration, and certified Ex-proof enclosures for hazardous facilities.',
+        c4Note: 'Вместо размытого «smart sensors» указываем конкретные протоколы АСУ ТП (Modbus, OPC UA) и класс взрывозащиты (Ex ia / ТР ТС 012).',
+        caseBadge: 'КЕЙС ВНЕДРЕНИЯ · СНГ И ЕАЭС',
+        caseTitle: '1,400 km Trunk Microwave Backhaul for Sub-Arctic Oil & Gas Pipeline',
+        caseDesc: 'Deployment of 38 dual-polarized MIK-RL hops with automated SCADA telemetry across permafrost terrain where fiber trenching is economically unfeasible. Zero downtime recorded at -58°C.',
+        caseNote: 'Переводим общую фразу «работа в суровых условиях» в измеримые параметры для ТЭК: 1400 км трассы, вечная мерзлота и 0% простоев при −58 °C.',
+        svgCaseFooter: 'DEPLOYMENT: TURNKEY EPC + FIELD SUPERVISION'
+      },
+      gs: {
+        langClass: '',
+        brandTitle: 'MICRAN',
+        brandBadge: 'MICRAN JSC · GLOBAL SOUTH',
+        brandSubtitle: 'RF Microelectronics · Rural & Industrial Telecom · IIoT',
+        kicker: 'ITU-R / IP67 · ZERO VENDOR LOCK-IN · SOLAR-READY',
+        title: 'Resilient Off-Grid Telecom & Industrial RF Solutions for Emerging Markets',
+        subtitle: 'High-capacity wireless backhaul and desert-hardened IIoT telemetry engineered for +60°C ambient heat, sandstorms, rapid rural 4G/5G rollout, and sovereign technology transfer.',
+        m1Val: '+60°C IP67', m1Lbl: 'Desert & Monsoon Hardened',
+        m2Val: 'Zero Lock-In', m2Lbl: 'Sanction-Free Supply Chain',
+        m3Val: '< 45 W', m3Lbl: 'Solar Off-Grid Power Draw',
+        heroNote: 'Для стран Глобального Юга (Ближний Восток, Африка, ЮВА, Латам) главным драйвером покупки является независимость от западных вендоров («Zero Vendor Lock-in»), низкое энергопотребление для питания от солнечных панелей и защита от пыли/жары +60 °C.',
+        consoleStd: 'STD: ITU-R / ETSI / IP67',
+        svgEnv: 'TEMP: +60°C DESERT NOMINAL',
+        consoleIp: 'IP67 / SOLAR DC',
+        c1Title: 'Sovereign GaAs/GaN RF Components & Subsystems',
+        c1Desc: 'Export-ready microwave modules and custom RF front-ends with guaranteed long-term supply continuity and local assembly technology transfer.',
+        c1Note: 'Вместо акцента на российском импортозамещении подчеркиваем гарантию бесперебойных поставок и возможность локализации сборки в стране заказчика.',
+        c2Title: 'Rapid-Rollout Rural & Mining 4G/5G Backhaul',
+        c2Desc: 'Long-haul high-throughput wireless links replacing costly fiber trenching across deserts, archipelagos, and open-pit mining operations.',
+        c2Note: 'Фокус на экономии CAPEX: быстрое развертывание связи без рытья траншей под кабель в пустынях, горах и на островах.',
+        c3Title: 'High-Capacity RF-over-Fiber Fronthaul Links',
+        c3Desc: 'Lightning-immune optical RF distribution for coastal radar stations, port infrastructure, and high-voltage substations.',
+        c3Note: 'Подчеркиваем полную грозозащиту (immunity to lightning surges) — критически важный фактор для тропического климата.',
+        c4Title: 'Solar-Powered Mine & Oilfield Telemetry (IIoT)',
+        c4Desc: 'Long-range wireless sensor networks engineered for high solar radiation, dust ingress (IP67), and remote asset monitoring without grid power.',
+        c4Note: 'Делаем акцент на автономном питании от солнечных батарей и защите от песчаных бурь (IP67).',
+        caseBadge: 'КЕЙС ВНЕДРЕНИЯ · ГЛОБАЛЬНЫЙ ЮГ (MEA / SEA)',
+        caseTitle: 'Off-Grid 5G & Telemetry Backbone for Open-Pit Mining & Solar Parks',
+        caseDesc: 'Solar-powered MIK-RL wireless rings connecting remote extraction sites across 320 km of arid terrain with IP67 dust sealing and local engineering training.',
+        caseNote: 'Ключевые триггеры для Глобального Юга: работа на солнечной энергии, пылезащита IP67 и обучение местных инженеров (Technology Transfer).',
+        svgCaseFooter: 'MODEL: TECHNOLOGY TRANSFER + LOCAL SUPPORT'
+      },
+      cn: {
+        langClass: 'lang-zh-sc',
+        brandTitle: '米克朗科研生产联合体 (MICRAN)',
+        brandBadge: '中俄高新技术产业合作',
+        brandSubtitle: '微波微电子 · 5G无线回传 · 微波光子学 · 工业物联网',
+        kicker: '自主可控 · 符合 GB/T 与 ITU 国际标准',
+        title: '面向极端工业环境的全栈式微波与无线通信基础设施',
+        subtitle: '具备砷化镓/氮化镓（GaAs/GaN）单片微波集成电路（MMIC）全流程自主研发与晶圆制造能力，为能源管网、5G专网及极端气候地区提供高可靠数字微波接力与防爆工业物联网解决方案。',
+        m1Val: '10 Gbps', m1Lbl: 'E频段大容量无线回传',
+        m2Val: '-60°C~+60°C', m2Lbl: '全温区工业级稳定运行',
+        m3Val: '100% 自主', m3Lbl: '全产业链研发与晶圆制造',
+        heroNote: 'Для материкового Китая (КНР) используется упрощенный китайский (简体中文) и институциональная лексика B2G/B2B: «自主可控» (технологический суверенитет), «全产业链» (полная производственная цепочка) и ссылки на стандарты GB/T.',
+        consoleStd: '标准: GB/T · CCSA · ITU-R',
+        svgEnv: '环境测试: -60°C 极寒正常',
+        consoleIp: 'IP67 / 隔爆型 Ex',
+        c1Title: 'GaAs / GaN 单片微波集成电路 (MMIC)',
+        c1Desc: '覆盖直流至 110 GHz 频段的低噪声放大器、功率放大器及移相器，实现从芯片设计到晶圆流片的全链条自主可控。',
+        c1Note: 'В КНР термин СВЧ МИС переводится строго как «单片微波集成电路 (MMIC)», а фабрика — «晶圆流片» (производство пластин).',
+        c2Title: '电信级数字微波接力通信系统 (MIK-RL)',
+        c2Desc: '支持 6–86 GHz 全频段，适用于无光纤覆盖区域的 4G/5G 承载网、油气长输管线及矿山专网骨干传输。',
+        c2Note: 'Используем принятый в китайском телекоме термин «数字微波接力通信系统» (цифровая радиорелейная связь) и «承载网» (транспортная сеть).',
+        c3Title: '微波光子学与光载无线 (RFoF) 系统',
+        c3Desc: '超宽带光电信号转换与天线拉远传输，具备极低传输损耗与完全抗电磁干扰（EMI）特性。',
+        c3Note: '«微波光子学» (радиофотоника) и «光载无线» (RF-over-Fiber) — точная терминология стандартов связи КНР.',
+        c4Title: '本质安全型工业物联网 (IIoT) 遥测终端',
+        c4Desc: '10年超长电池寿命无线传感器与工业网关，无缝接入 Modbus/OPC UA 协议，满足高危能源场景防爆认证。',
+        c4Note: 'Взрывозащита переводится через официальный стандарт КНР «本质安全型» (искробезопасная цепь) и «防爆认证».',
+        caseBadge: '标杆案例 · 极寒能源管网通信',
+        caseTitle: '1,400 公里极寒油气长输管线数字微波骨干网建设',
+        caseDesc: '在无法铺设光缆的永久冻土区部署 38 跳双极化 MIK-RL 微波链路及 SCADA 遥测系统，在 -58°C 极端低温下实现零中断运行。',
+        caseNote: 'В китайском B2B-кейсе подчеркиваются масштаб объекта (1400 км), вечная мерзлота («永久冻土区») и нулевой простой («零中断运行»).',
+        svgCaseFooter: '交付模式: 交钥匙工程 (EPC) + 现场技术督导'
+      },
+      hktw: {
+        langClass: 'lang-zh-tc',
+        brandTitle: '米克朗科技股份有限公司 (MICRAN)',
+        brandBadge: '半導體與射頻通訊解決方案',
+        brandSubtitle: 'RFIC/MMIC 設計 · 5G 毫米波回傳 · 微波光電 · 工業感測',
+        kicker: 'IEEE / ETSI 國際認證 · 高精度化合物半導體工藝',
+        title: '高精度 GaAs/GaN 射頻晶片與電信級毫米波傳輸架構',
+        subtitle: '專注於最高 110 GHz 化合物半導體（GaAs/GaN）MMIC 研發設計、電信級 E-Band 5G 毫米波回傳系統，以及抗鹽霧颱風之高可靠工業物聯網感測節點。',
+        m1Val: '110 GHz', m1Lbl: '化合物半導體製程工藝',
+        m2Val: 'ETSI / IEEE', m2Lbl: '國際電信與射頻標準相容',
+        m3Val: '99.999%', m3Lbl: '電信級載波高可用度',
+        heroNote: 'Для Гонконга и Тайваня используется традиционный китайский (繁體中文) и полупроводниковая терминология индустрии TSMC/MediaTek: «化合物半導體» (полупроводники A3B5), «製程工藝» (техпроцесс) и акцент на международные стандарты IEEE/ETSI и защиту от тайфунов/соленого тумана.',
+        consoleStd: '標準: ETSI · IEEE · ITU-R',
+        svgEnv: '環境測試: 抗鹽霧 / 強風穩定',
+        consoleIp: 'IP67 / 抗鹽霧',
+        c1Title: 'GaAs / GaN 單片微波積體電路 (MMIC / RFIC)',
+        c1Desc: '提供 DC 至 110 GHz 低雜訊放大器（LNA）、功率放大器（PA）與移相器設計，具備完整化合物半導體製程與測試驗證能力。',
+        c1Note: 'На Тайване интегральные схемы называются «積體電路» (а не 集成电路, как в КНР), а шумы — «雜訊» (вместо 噪声).',
+        c2Title: '電信級 5G 毫米波數位微波回傳系統',
+        c2Desc: '支援 6–86 GHz 與 E-Band 高頻寬傳輸，為海島地形、跨海大橋及行動通訊基地台提供光纖級低延遲骨幹連線。',
+        c2Note: 'Используем тайваньскую отраслевую лексику: «基地台» (базовая станция), «低延遲» (низкая задержка) и фокус на островную/морскую связь.',
+        c3Title: '微波光電與光纖無線電 (RFoF) 傳輸模組',
+        c3Desc: '超寬頻光電轉換與天線遠端拉遠架構，具備極低訊號衰減與完全抗電磁干擾（EMI）特性，適用於雷達與精密測試。',
+        c3Note: 'Сигнал на Тайване пишется как «訊號» (в КНР — 信号), лазер/оптика — «微波光電».',
+        c4Title: '抗鹽霧防爆型工業物聯網 (IIoT) 感測節點',
+        c4Desc: '支援 Modbus / OPC UA 工業通訊協定，具備 10 年電池續航力與 IP67 抗鹽霧腐蝕外殼，專為沿海石化與離岸風電場設計。',
+        c4Note: 'Для Тайваня и Гонконга адаптируем сценарий под прибрежную инфраструктуру и оффшорную ветроэнергетику («離岸風電場», «抗鹽霧腐蝕»).',
+        caseBadge: '工程實績 · 沿海與離岸通訊骨幹',
+        caseTitle: '跨海島嶼與離岸風電場 E-Band 毫米波高頻寬回傳網路',
+        caseDesc: '部署具備 IP67 抗鹽霧與抗強風結構之 MIK-RL 雙極化微波鏈路，於高濕度與颱風季環境下維持 99.999% 電信級傳輸可用度。',
+        caseNote: 'Вместо сибирских морозов кейс для Тайваня/Гонконга акцентирует устойчивость к высокой влажности, солевому туману и сезону тайфунов («颱風季»).',
+        svgCaseFooter: '服務模式: 客製化 RF 設計整合 + 技術支援'
+      }
+    };
+
+    const glossaryData = [
+      {
+        cat: 'rf',
+        ru: 'СВЧ МИС (монолитная интегральная схема)',
+        cis: 'GaAs/GaN MMIC (Sovereign Foundry)',
+        gs: 'Export-Ready RF MMIC Modules',
+        cn: '单片微波集成电路 (MMIC)',
+        hktw: '單片微波積體電路 (MMIC / RFIC)',
+        note: 'В КНР используется «集成电路», на Тайване и в Гонконге — «積體電路». В английском для СНГ подчеркиваем собственную фабрику.'
+      },
+      {
+        cat: 'telecom',
+        ru: 'ЦРРС (цифровая радиорелейная станция)',
+        cis: 'Digital Radio Relay System (DRRS)',
+        gs: 'Carrier-Grade Microwave Backhaul',
+        cn: '数字微波接力通信系统',
+        hktw: '數位微波回傳系統',
+        note: 'Дословное «station» в телекоме не используют; для Глобального Юга лучше работает «Microwave Backhaul» (магистральный транспорт).'
+      },
+      {
+        cat: 'rf',
+        ru: 'Радиофотоника',
+        cis: 'Microwave Photonics / RF-over-Fiber',
+        gs: 'RF-over-Fiber (Lightning-Immune)',
+        cn: '微波光子学 / 光载无线',
+        hktw: '微波光電 / 光纖無線電',
+        note: 'Для тропиков Глобального Юга добавляем прикладное свойство — полную грозозащиту оптического тракта.'
+      },
+      {
+        cat: 'env',
+        ru: 'Арктическое / тропическое исполнение',
+        cis: 'GOST Arctic-Rated (-60°C, UHL1)',
+        gs: 'IP67 Desert & Tropical Hardened (+60°C)',
+        cn: '全温区工业级 (-60°C ~ +60°C)',
+        hktw: '抗鹽霧與極端氣候防護 (IP67)',
+        note: 'Прямой перевод «climatic version» непонятен за рубежом — заменяем на конкретный температурный диапазон и класс IP.'
+      },
+      {
+        cat: 'env',
+        ru: 'Взрывозащищенное исполнение (ТЭК)',
+        cis: 'Ex-Proof Certified (TR CU 012 / ATEX)',
+        gs: 'Hazardous-Area Certified (ATEX / IECEx)',
+        cn: '本质安全型防爆认证',
+        hktw: '防爆認證工業級外殼 (IECEx)',
+        note: 'Для СНГ ссылаемся на техрегламент ТР ТС 012, для международного рынка — на стандарты IECEx / ATEX.'
+      },
+      {
+        cat: 'biz',
+        ru: 'Шеф-монтаж и пусконаладка (ПНР)',
+        cis: 'Turnkey EPC & Field Supervision',
+        gs: 'Commissioning & Local Tech Transfer',
+        cn: '交钥匙工程与现场技术督导',
+        hktw: '系統整合部署與現場技術支援',
+        note: 'Калька «chief-mounting» является русизмом. Правильный инженерный эквивалент — «Field Supervision & Commissioning».'
+      },
+      {
+        cat: 'biz',
+        ru: 'Импортозамещение / независимость поставок',
+        cis: '100% Sovereign Supply Chain',
+        gs: 'Zero Vendor Lock-In / Sanction-Free',
+        cn: '全产业链自主可控',
+        hktw: '高可靠供應鏈保障',
+        note: 'Внутри РФ/СНГ говорят об импортозамещении; на экспортных рынках это подается как защита заказчика от санкционных рисков.'
+      },
+      {
+        cat: 'telecom',
+        ru: 'Труднодоступные районы без оптоволокна',
+        cis: 'Permafrost & Remote Trunklines',
+        gs: 'Off-Grid Rural & Archipelago Connectivity',
+        cn: '无光纤覆盖偏远地区骨干网',
+        hktw: '海島與偏遠地形無光纖傳輸',
+        note: 'Адаптируем географический контекст: вечная мерзлота для СНГ, острова/пустыни для Юга, морские проливы для Тайваня.'
+      }
+    ];
+
+    let currentRegion = 'cis';
+    let inspectorVisible = true;
+
+    function setRegion(regionKey) {
+      currentRegion = regionKey;
+      const data = regionsData[regionKey];
+
+      // Update active tab styling
+      document.querySelectorAll('.region-tab').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white', 'shadow');
+        btn.classList.add('text-slate-300', 'hover:text-white');
+      });
+      const activeBtn = document.getElementById('tab-' + regionKey);
+      activeBtn.classList.remove('text-slate-300', 'hover:text-white');
+      activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow');
+
+      // Apply font class
+      document.body.classList.remove('lang-zh-sc', 'lang-zh-tc');
+      if (data.langClass) {
+        document.body.classList.add(data.langClass);
+      }
+
+      // Populate text fields
+      document.getElementById('brand-title').textContent = data.brandTitle;
+      document.getElementById('brand-badge').textContent = data.brandBadge;
+      document.getElementById('brand-subtitle').textContent = data.brandSubtitle;
+      document.getElementById('hero-kicker').textContent = data.kicker;
+      document.getElementById('hero-title').textContent = data.title;
+      document.getElementById('hero-subtitle').textContent = data.subtitle;
+
+      document.getElementById('metric-1-val').textContent = data.m1Val;
+      document.getElementById('metric-1-lbl').textContent = data.m1Lbl;
+      document.getElementById('metric-2-val').textContent = data.m2Val;
+      document.getElementById('metric-2-lbl').textContent = data.m2Lbl;
+      document.getElementById('metric-3-val').textContent = data.m3Val;
+      document.getElementById('metric-3-lbl').textContent = data.m3Lbl;
+
+      document.getElementById('hero-translator-note').textContent = data.heroNote;
+      document.getElementById('console-std-tag').textContent = data.consoleStd;
+      document.getElementById('svg-env-status').textContent = data.svgEnv;
+      document.getElementById('console-ip-val').textContent = data.consoleIp;
+
+      document.getElementById('card1-title').textContent = data.c1Title;
+      document.getElementById('card1-desc').textContent = data.c1Desc;
+      document.getElementById('card1-note').textContent = data.c1Note;
+
+      document.getElementById('card2-title').textContent = data.c2Title;
+      document.getElementById('card2-desc').textContent = data.c2Desc;
+      document.getElementById('card2-note').textContent = data.c2Note;
+
+      document.getElementById('card3-title').textContent = data.c3Title;
+      document.getElementById('card3-desc').textContent = data.c3Desc;
+      document.getElementById('card3-note').textContent = data.c3Note;
+
+      document.getElementById('card4-title').textContent = data.c4Title;
+      document.getElementById('card4-desc').textContent = data.c4Desc;
+      document.getElementById('card4-note').textContent = data.c4Note;
+
+      document.getElementById('case-badge').textContent = data.caseBadge;
+      document.getElementById('case-title').textContent = data.caseTitle;
+      document.getElementById('case-desc').textContent = data.caseDesc;
+      document.getElementById('case-note').textContent = data.caseNote;
+      document.getElementById('svg-case-footer').textContent = data.svgCaseFooter;
+    }
+
+    function toggleInspector() {
+      inspectorVisible = !inspectorVisible;
+      document.querySelectorAll('.inspector-box').forEach(box => {
+        box.style.display = inspectorVisible ? 'block' : 'none';
+      });
+      const label = inspectorVisible ? 'ВКЛ' : 'ВЫКЛ';
+      document.getElementById('inspector-state').textContent = label;
+      document.getElementById('inspector-state-mobile').textContent = label;
+    }
+
+    function renderGlossary(items) {
+      const tbody = document.getElementById('glossary-tbody');
+      tbody.innerHTML = items.map(item => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3.5 px-4 font-semibold text-slate-900">${item.ru}</td>
+          <td class="py-3.5 px-4 text-sky-900 font-medium">${item.cis}</td>
+          <td class="py-3.5 px-4 text-amber-900 font-medium">${item.gs}</td>
+          <td class="py-3.5 px-4 text-rose-900 lang-zh-sc">${item.cn}</td>
+          <td class="py-3.5 px-4 text-emerald-900 lang-zh-tc">${item.hktw}</td>
+          <td class="py-3.5 px-4 text-slate-600 text-xs leading-relaxed">${item.note}</td>
+        </tr>
+      `).join('');
+    }
+
+    function filterGlossary() {
+      const query = document.getElementById('glossary-search').value.toLowerCase();
+      const cat = document.getElementById('glossary-cat').value;
+      const filtered = glossaryData.filter(item => {
+        const matchesCat = cat === 'all' || item.cat === cat;
+        const matchesQuery = !query || 
+          item.ru.toLowerCase().includes(query) ||
+          item.cis.toLowerCase().includes(query) ||
+          item.gs.toLowerCase().includes(query) ||
+          item.cn.toLowerCase().includes(query) ||
+          item.hktw.toLowerCase().includes(query) ||
+          item.note.toLowerCase().includes(query);
+        return matchesCat && matchesQuery;
+      });
+      renderGlossary(filtered);
+    }
+
+    function toggleReadmeModal(show) {
+      const modal = document.getElementById('readme-modal');
+      if (show) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function copyReadme() {
+      const textarea = document.getElementById('readme-text');
+      textarea.select();
+      document.execCommand('copy');
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = 'Скопировано!';
+      setTimeout(() => { btn.textContent = 'Скопировать README'; }, 2000);
+    }
+
+    // Initialize
+    setRegion('cis');
+    renderGlossary(glossaryData);
+  </script>
+</body>
+</html>
